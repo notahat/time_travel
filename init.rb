@@ -1,0 +1,1 @@
+require 'time_travel' if ENV["RAILS_ENV"] == "test"

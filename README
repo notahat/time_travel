@@ -1,17 +1,16 @@
 = TimeTravel
 
-This lets you set the current time in your tests or specs, so you can do
-things like:
+Time Travel is a Rails plugin that makes it easy to write tests or specs for time-dependent code. It provides the at_time function:
 
-  at_time("1 April 2020 2:32 UTC") do
-    # some fancy code
+  at_time("9 March 2018 2:32 UTC") do
+    ...
   end
-  
-Inside the block, Time.now will return the time you provide. The time will
-be restored to normal system time when the block exits, even if it throws
-an exception.
 
-The at_time function can take a Time object, or a string to parse into a time.
+Inside the block, Time.now will return the given time. The time will
+be restored to normal system time when the block exits.
 
-TimeTravel is only loaded in the Rails test environment. If you need it in
-your development environment, just require 'time_travel'.
+The at_time function can take a Time object, or a String to parse into a time.
+
+== Installation
+
+ruby script/plugin install http://svn.notahat.com/time_travel/trunk

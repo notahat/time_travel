@@ -15,7 +15,9 @@ module TimeTravel
     end
   
     module ClassMethods
-        
+
+      @@now = nil
+
       def now=(time)
         time = Time.parse(time) if time.instance_of?(String)
         @@now = time

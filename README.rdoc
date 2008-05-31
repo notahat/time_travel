@@ -13,4 +13,4 @@ The at_time function can take a Time object, or a String to parse into a time.
 
 == Installation
 
-ruby script/plugin install http://svn.notahat.com/time_travel/trunk
+ruby script/plugin install git://github.com/notahat/time_travel.git

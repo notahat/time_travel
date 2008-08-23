@@ -11,6 +11,12 @@ be restored to normal system time when the block exits.
 
 The at_time function can take a Time object, or a String to parse into a time.
 
+You can also access the current time inside of the block via a block parameter, eg:
+
+  at_time Time.now do |time|
+    ...
+  end
+
 == Installation
 
 ruby script/plugin install git://github.com/notahat/time_travel.git

@@ -5,7 +5,7 @@ Time.send(:include, TimeTravel::TimeExtensions)
 def at_time(time)
   Time.now = time
   begin
-    yield
+    yield time
   ensure
     Time.now = nil
   end

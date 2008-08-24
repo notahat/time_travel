@@ -43,6 +43,12 @@ describe TimeTravel, "at_time method" do
     end
   end
   
+  it "should pass the time into the block" do
+    at_time(@future) do |time|
+      time.should == @future
+    end
+  end
+  
   it "should restore the system time after the block" do
     at_time(@future) do
     end

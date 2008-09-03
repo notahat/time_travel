@@ -73,3 +73,11 @@ describe TimeTravel, "at_time method" do
   end
   
 end
+
+describe TimeTravel, "closest_second method" do
+  
+  it "should return the time with no microseconds" do
+    Time.utc(2020, 4, 1, 9, 0, 0, 500).closest_second.should == Time.utc(2020, 4, 1, 9, 0, 0)
+  end
+    
+end

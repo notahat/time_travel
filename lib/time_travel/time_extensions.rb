@@ -14,6 +14,10 @@ module TimeTravel
       base.now = nil
     end
   
+    def closest_second
+      Time.gm(year, month, day, hour, min, sec)
+    end
+
     module ClassMethods
 
       @@now = nil

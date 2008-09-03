@@ -21,6 +21,22 @@ You can also access the current time inside of the block via a block parameter, 
     ...
   end
 
+== closest_second
+
+The +closest_second+ method is useful when you need to compare an ActiveRecord datetime value with a Ruby Time.
+
+Times are normally stored in your database with 1 second resolution, but Ruby's Time class has microsecond resolution. That means that this will usually fail:
+
+  at_time(Time.now) do  # Freeze the time to a single value for the block.
+    @post = Post.create(:title => 'Example')
+    @post.reload
+    @post.created_at.should == Time.now  # Time.now has some number of microseconds, but @post.created_at doesn't.
+  end
+	
+The +closest_second+ method returns the time without the microseconds, so the following will succeed:
+
+  @post.created_at.should == Time.now.closest_second
+
 == Installation
 
 ruby script/plugin install git://github.com/notahat/time_travel.git

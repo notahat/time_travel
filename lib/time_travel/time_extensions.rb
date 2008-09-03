@@ -19,7 +19,13 @@ module TimeTravel
       @@now = nil
 
       def now=(time)
-        time = Time.parse(time) if time.instance_of?(String)
+        if time.instance_of?(String)
+          if Time.respond_to?(:zone) && Time.zone
+            time = Time.zone.parse(time).utc
+          else
+            time = Time.parse(time)
+          end
+        end
         @@now = time
       end
 

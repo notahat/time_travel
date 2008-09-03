@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../lib')
 require 'time_travel'
 require 'time'
+require 'active_support'
 
 describe TimeTravel, "assigning to Time.now" do
 
@@ -23,6 +24,12 @@ describe TimeTravel, "assigning to Time.now" do
   it "should accept a string" do
     Time.now = "1 April 2020"
     Time.now.should == Time.parse("1 April 2020")
+  end
+  
+  it "should accept a string in the current timezone" do
+    Time.zone = "Australia/Melbourne"
+    Time.now = "1 July 2020 11:00 AM"
+    Time.now.should == Time.parse("1 July 2020 1:00 AM UTC")
   end
   
   after do

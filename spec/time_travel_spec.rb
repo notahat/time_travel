@@ -26,8 +26,15 @@ describe TimeTravel, "assigning to Time.now" do
     Time.now.should == Time.parse("1 April 2020")
   end
   
-  it "should accept a string in the current timezone" do
+  it "should accept a string in the current timezone as set in ActiveSupport" do
     Time.zone = "Australia/Melbourne"
+    Time.now = "1 July 2020 11:00 AM"
+    Time.now.should == Time.parse("1 July 2020 1:00 AM UTC")
+  end
+  
+  it "should accept a string in the current timezone as set in the environment" do
+    Time.zone = nil
+    ENV['TZ'] = "Australia/Melbourne"
     Time.now = "1 July 2020 11:00 AM"
     Time.now.should == Time.parse("1 July 2020 1:00 AM UTC")
   end

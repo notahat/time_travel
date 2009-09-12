@@ -9,11 +9,13 @@ Time Travel is a Rails plugin that makes it easy to write tests or specs for tim
 Inside the block, Time.now will return the given time. The time will
 be restored to normal system time when the block exits.
 
-The at_time function can take a Time object, or a String to parse into a time.
+The at_time function can take a Time object, a Date, or a String to parse them into a time.
 
 If the time is given as a String, it is parsed using Time.zone.parse (in Rails 2.1)
 or Time.parse (in Rails 2.0 and earlier). That means it will be interpreted as being
 in the current timezone, unless you provide an explicit timezone in the string.
+
+If the time is given as a Date, it is converted to a String and then parsed in the described way.
 
 You can also access the current time inside of the block via a block parameter, eg:
 

@@ -22,15 +22,8 @@ module TimeTravel
 
       @@now = nil
 
-      def now=(time)
-        if time.instance_of?(String)
-          if Time.respond_to?(:zone) && Time.zone
-            time = Time.zone.parse(time).utc
-          else
-            time = Time.parse(time)
-          end
-        end
-        @@now = time
+      def now=(value)
+        @@now = value.respond_to?(:parse_to_time) ? value.parse_to_time : value
       end
 
       def mutable_now #:nodoc:

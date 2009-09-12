@@ -26,17 +26,46 @@ describe TimeTravel, "assigning to Time.now" do
     Time.now.should == Time.parse("1 April 2020")
   end
   
-  it "should accept a string in the current timezone as set in ActiveSupport" do
-    Time.zone = "Perth"
-    Time.now = "1 July 2020 11:00 AM"
-    Time.now.should == Time.parse("1 July 2020 3:00 AM UTC")
+  it "should accept a date" do
+    Time.now = @future.to_date
+    Time.now.should == Time.parse("1 April 2020")
   end
   
-  it "should accept a string in the current timezone as set in the environment" do
-    Time.zone = nil
-    ENV['TZ'] = "Australia/Perth"
-    Time.now = "1 July 2020 11:00 AM"
-    Time.now.should == Time.parse("1 July 2020 3:00 AM UTC")
+  context "in the current timezone as set in ActiveSupport" do
+    
+    before do
+      Time.zone = "Perth"
+    end
+  
+    it "should accept a date" do
+      Time.now = Date.civil(2020, 7, 1)
+      Time.now.should == Time.parse("30 June 2020 4:00 PM UTC")
+    end
+    
+    it "should accept a string" do
+      Time.now = "1 July 2020 11:00 AM"
+      Time.now.should == Time.parse("1 July 2020 3:00 AM UTC")
+    end
+    
+  end
+  
+  context "in the current timezone as set in the environment" do
+    
+    before do
+      Time.zone = nil
+      ENV['TZ'] = "Australia/Perth"
+    end
+  
+    it "should accept a date" do
+      Time.now = Date.civil(2020, 7, 1)
+      Time.now.should == Time.parse("30 June 2020 4:00 PM UTC")
+    end
+  
+    it "should accept a string" do
+      Time.now = "1 July 2020 11:00 AM"
+      Time.now.should == Time.parse("1 July 2020 3:00 AM UTC")
+    end
+    
   end
   
   after do
@@ -57,8 +86,20 @@ describe TimeTravel, "at_time method" do
     end
   end
   
+  it "should change the date within the block" do
+    at_time(@future.to_date) do
+      Date.today.should == @future.to_date
+    end
+  end
+  
   it "should pass the time into the block" do
     at_time(@future) do |time|
+      time.should == @future
+    end
+  end
+  
+  it "should pass the time into the block being given a date" do
+    at_time(@future.to_date) do |time|
       time.should == @future
     end
   end
